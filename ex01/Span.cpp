@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkollner <jkollner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonahkollner <jonahkollner@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:00:41 by jkollner          #+#    #+#             */
-/*   Updated: 2024/01/05 16:37:03 by jkollner         ###   ########.fr       */
+/*   Updated: 2024/03/01 17:37:48 by jonahkollne      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Span.hpp"
-#include <stdexcept>
+
+Span::Span() {
+	this->N = 0;
+}
 
 Span::Span( unsigned int N ) {
 	this->N = N;
-	this->storage = new int[N];
-	this->new_spot = storage;
-	this->end = this->storage + N - 1;
+	this->storage.reserve(N); //prealloc memory
 }
 
-//Span::Span( Span &cpy) {
-//	//this->
-//}
+Span::Span( Span &cpy ) {
+	*this = cpy;
+}
 
-//Span &Span::operator=( Span &as ) {
-//	//
-//}
+Span &Span::operator=( const Span &as ) {
+	this->N = as.N;
+	this->storage = as.storage;
+	return (*this);
+}
 
 int Span::operator[]( unsigned int n ) {
-	if (this->N <= n) {
-		throw std::out_of_range("Out of bounce");
-	}
-	return (this->storage[n]);
+	return (this->storage.at(n)); // at function will throw std::out_of_range itself
 }
 
 unsigned int Span::size( void ) {
@@ -40,14 +40,34 @@ unsigned int Span::size( void ) {
 }
 
 void Span::addNumber( int number ) {
-	if (this->new_spot != this->end + 1) {
-		*this->new_spot = number;
-		this->new_spot++;
+	if ((unsigned int)this->storage.size() < this->N) {
+		this->storage.push_back(number);
 	} else {
 		throw std::out_of_range("Array is full");
 	}
 }
 
+unsigned int Span::shortestSpan( void ) {
+	if (this->storage.size() < 2) {
+		throw std::out_of_range("Array has nothing or only one element.");
+	}
+	std::sort(this->storage.begin(), this->storage.end());
+	int min_diff = std::numeric_limits<int>::max();
+
+	for (size_t i = 0; i < this->storage.size() - 1; i++) {
+		if (this->storage[i + 1] - this->storage[i] < min_diff) {
+			min_diff = this->storage[i + 1] - this->storage[i];
+		}
+	}
+	return ((unsigned int)min_diff);
+}
+
+unsigned int Span::longestSpan( void ) {
+	if (this->storage.size() < 2)
+		throw std::out_of_range("Array has nothing or only one element.");
+	std::sort(this->storage.begin(), this->storage.end());
+	return ((unsigned int)this->storage.back() - this->storage.front());
+}
+
 Span::~Span() {
-	delete this->storage;
 }
