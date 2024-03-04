@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonahkollner <jonahkollner@student.42.f    +#+  +:+       +#+        */
+/*   By: jkollner <jkollner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:55:04 by jkollner          #+#    #+#             */
-/*   Updated: 2024/03/01 17:38:07 by jonahkollne      ###   ########.fr       */
+/*   Updated: 2024/03/04 10:16:01 by jkollner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 #include <algorithm>
 #include <stdexcept>
+#include <vector>
 class Span {
 	private:
 		Span();
@@ -27,6 +28,7 @@ class Span {
 		void addNumber( int number );
 		unsigned int shortestSpan( void );
 		unsigned int longestSpan( void );
+		int addRange( std::vector<int>::iterator begin, std::vector<int>::iterator end );
 
 		~Span();
 };

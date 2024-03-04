@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jonahkollner <jonahkollner@student.42.f    +#+  +:+       +#+        */
+/*   By: jkollner <jkollner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:00:41 by jkollner          #+#    #+#             */
-/*   Updated: 2024/03/01 17:37:48 by jonahkollne      ###   ########.fr       */
+/*   Updated: 2024/03/04 10:17:06 by jkollner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,14 @@ unsigned int Span::longestSpan( void ) {
 		throw std::out_of_range("Array has nothing or only one element.");
 	std::sort(this->storage.begin(), this->storage.end());
 	return ((unsigned int)this->storage.back() - this->storage.front());
+}
+
+int Span::addRange( std::vector<int>::iterator begin, std::vector<int>::iterator end ) {
+	if (this->storage.size() + std::distance(begin, end) > this->N) {
+		throw std::out_of_range("Array is full");
+	}
+	this->storage.insert(this->storage.end(), begin, end);
+	return (0);
 }
 
 Span::~Span() {
