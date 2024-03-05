@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MutantStack.tpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkollner <jkollner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonahkollner <jonahkollner@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:57:13 by jkollner          #+#    #+#             */
-/*   Updated: 2024/03/04 10:57:21 by jkollner         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:27:34 by jonahkollne      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,19 @@ template<typename T>
 MutantStack<T>::~MutantStack() {}
 
 template<typename T>
-MutantStack<T> &MutantStack<T>::operator=(MutantStack const &other)
-{
-	if (this != &other)
-	{
+MutantStack<T> &MutantStack<T>::operator=(MutantStack const &other) {
+	if (this != &other) {
 		std::stack<T>::operator=(other);
 	}
 	return *this;
 }
 
 template<typename T>
-typename MutantStack<T>::iterator MutantStack<T>::begin()
-{
+typename MutantStack<T>::iterator MutantStack<T>::begin() {
 	return this->c.begin();
 }
 
 template<typename T>
-typename MutantStack<T>::iterator MutantStack<T>::end()
-{
-	return this->c.end();
-}
-
-template<typename T>
-typename MutantStack<T>::const_iterator MutantStack<T>::begin() const
-{
-	return this->c.begin();
-}
-
-template<typename T>
-typename MutantStack<T>::const_iterator MutantStack<T>::end() const
-{
+typename MutantStack<T>::iterator MutantStack<T>::end() {
 	return this->c.end();
 }
