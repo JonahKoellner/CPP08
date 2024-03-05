@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkollner <jkollner@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jonahkollner <jonahkollner@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 16:00:41 by jkollner          #+#    #+#             */
-/*   Updated: 2024/03/04 10:17:06 by jkollner         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:19:42 by jonahkollne      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,29 @@ unsigned int Span::shortestSpan( void ) {
 	if (this->storage.size() < 2) {
 		throw std::out_of_range("Array has nothing or only one element.");
 	}
-	std::sort(this->storage.begin(), this->storage.end());
+
+	std::vector<int> sorted_storage(this->storage); // Create a copy of storage
+	std::sort(sorted_storage.begin(), sorted_storage.end()); // Sort the copy
+
 	int min_diff = std::numeric_limits<int>::max();
 
-	for (size_t i = 0; i < this->storage.size() - 1; i++) {
-		if (this->storage[i + 1] - this->storage[i] < min_diff) {
-			min_diff = this->storage[i + 1] - this->storage[i];
+	for (size_t i = 0; i < sorted_storage.size() - 1; i++) {
+		if (sorted_storage[i + 1] - sorted_storage[i] < min_diff) {
+			min_diff = sorted_storage[i + 1] - sorted_storage[i];
 		}
 	}
 	return ((unsigned int)min_diff);
 }
 
 unsigned int Span::longestSpan( void ) {
-	if (this->storage.size() < 2)
+	if (this->storage.size() < 2) {
 		throw std::out_of_range("Array has nothing or only one element.");
-	std::sort(this->storage.begin(), this->storage.end());
-	return ((unsigned int)this->storage.back() - this->storage.front());
+	}
+
+	std::vector<int> sorted_storage(this->storage); // Create a copy of storage
+	std::sort(sorted_storage.begin(), sorted_storage.end()); // Sort the copy
+
+	return ((unsigned int)sorted_storage.back() - sorted_storage.front());
 }
 
 int Span::addRange( std::vector<int>::iterator begin, std::vector<int>::iterator end ) {
